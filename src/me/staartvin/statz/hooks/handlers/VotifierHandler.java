@@ -3,7 +3,6 @@ package me.staartvin.statz.hooks.handlers;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 
-import com.vexsoftware.votifier.Votifier;
 
 import me.staartvin.statz.Statz;
 import me.staartvin.statz.hooks.Dependency;
@@ -20,7 +19,7 @@ import me.staartvin.statz.hooks.DependencyHandler;
 public class VotifierHandler implements DependencyHandler {
 
 	private final Statz plugin;
-	private Votifier api;
+	private Plugin api;
 
 	public VotifierHandler(final Statz instance) {
 		plugin = instance;
@@ -34,7 +33,7 @@ public class VotifierHandler implements DependencyHandler {
 		final Plugin plugin = this.plugin.getServer().getPluginManager().getPlugin(Dependency.VOTIFIER.getInternalString());
 
 		// May not be loaded
-		if (plugin == null || !(plugin instanceof Votifier)) {
+		if (plugin == null) {
 			return null; // Maybe you want throw an exception instead
 		}
 
@@ -54,7 +53,7 @@ public class VotifierHandler implements DependencyHandler {
 	 */
 	@Override
 	public boolean isInstalled() {
-		final Votifier plugin = (Votifier) get();
+		final Plugin plugin = get();
 
 		return plugin != null && plugin.isEnabled();
 	}
@@ -70,7 +69,7 @@ public class VotifierHandler implements DependencyHandler {
 			}
 			return false;
 		} else {
-			api = (Votifier) get();
+			api = get();
 
 			if (api != null) {
 				return true;
